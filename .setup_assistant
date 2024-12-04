@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: grace_arm_description
+    relative_path: urdf/grace.urdf
+    xacro_args: ""
+  SRDF:
+    relative_path: config/turtlebot.srdf
+  CONFIG:
+    author_name: Brent Weiffenbach
+    author_email: brentweiffenbach@gmail.com
+    generated_timestamp: 1733299871
