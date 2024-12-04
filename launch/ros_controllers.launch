@@ -1,11 +1,15 @@
-<?xml version="1.0"?>
 <launch>
-
   <!-- Load joint controller configurations from YAML file to parameter server -->
   <rosparam file="$(find grace_mobile_manipulator)/config/ros_controllers.yaml" command="load"/>
 
-  <!-- Load the controllers -->
-  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-    output="screen" args="arm_controller gripper_controller "/>
+  <!-- Launch the controller manager -->
+  <node name="controller_manager" pkg="controller_manager" type="controller_manager" respawn="false" output="screen" ns="grace_mobile_manipulator"/>
 
+  <!-- Load the controllers -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen"
+    args="--namespace=/grace_mobile_manipulator
+    arm_controller
+    gripper_controller
+    joint_state_controller
+    --timeout 20"/>
 </launch>

@@ -9,7 +9,7 @@
   <param if="$(arg load_robot_description)" name="$(arg robot_description)" textfile="$(find grace_arm_description)/urdf/grace.urdf"/>
 
   <!-- The semantic description that corresponds to the URDF -->
-  <param name="$(arg robot_description)_semantic" textfile="$(find grace_mobile_manipulator)/config/turtlebot.srdf" />
+  <param name="$(arg robot_description)_semantic" textfile="$(find grace_mobile_manipulator)/config/grace_mobile_manipulator.srdf" />
 
   <!-- Load updated joint limits (override information from URDF) -->
   <group ns="$(arg robot_description)_planning">
