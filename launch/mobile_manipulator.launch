@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- By default, we are not in debug mode -->
+  <arg name="debug" default="false" />
+
+  <param name="robot_description" textfile="$(find grace_arm_description)/urdf/grace.urdf" />
+  <include file="$(find gazebo_ros)/launch/empty_world.launch"/>
+  
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model grace" />
+  <!-- <rosparam command="load" file="$(find grace_mobile_manipulator)/config/arm_control.yaml" /> -->
+  
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam file="$(find grace_mobile_manipulator)/config/ros_controllers.yaml" command="load"/>
+
+  <!-- Launch the controller manager -->
+  <node name="controller_manager" pkg="controller_manager" type="controller_manager" respawn="false" output="screen" />
+  
+  <!-- Load the controllers -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen"
+    args="--namespace=/grace_mobile_manipulator
+    arm_controller
+    gripper_controller
+    joint_state_controller
+    --timeout 60"/>
+
+  <!-- Include the base control launch file -->
+  <include file="$(find grace_mobile_manipulator)/launch/base_control.launch"/>
+
+    <!-- remap /joint_states -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+  <remap from="/joint_states" to="/grace_mobile_manipulator/joint_states" />
+ 
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen"/>
+
+
+  <!-- Run the main MoveIt! executable without trajectory execution (we do not have controllers configured by default) -->
+ 
+</launch>

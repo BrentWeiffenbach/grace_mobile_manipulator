@@ -1,0 +1,7 @@
+<launch>
+  <!-- Launch the teleop_twist_keyboard node -->
+  <node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen">
+    <param name="speed" value="0.2"/>
+    <remap from="cmd_vel" to="/grace_mobile_manipulator/base_controller/cmd_vel"/>
+  </node>
+</launch>

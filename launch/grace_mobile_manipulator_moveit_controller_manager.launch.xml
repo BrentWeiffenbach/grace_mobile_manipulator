@@ -4,4 +4,8 @@
 
   <!-- loads controller list to the param server -->
   <rosparam file="$(find grace_mobile_manipulator)/config/ros_controllers.yaml"/>
+
+    <!-- loads controller list to the param server -->
+  <rosparam file="$(find grace_mobile_manipulator)/config/base_control.yaml"/>
+
 </launch>
